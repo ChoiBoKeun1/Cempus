@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <p>로그인</p>
+    <div class="input-txt">
+        <input type="text" name="id" placeholder="아이디">
+        <p class="alert-msg" id="alert-id" style="display:none;"></p>
+    </div>
+    <div class="input-txt">
+        <input type="password" name="pw" placeholder="비밀번호">
+        <p class="alert-msg" id="alert-pw" style="display:none;"></p>
+    </div>
+
+    <div class="btn-submit">
+        <button type="button" onclick="login()">로그인</button>
+    </div>
+</body>
+<script>
+    function login() {
+        var id = $('input[name=id]').val();
+        var pw = $('input[name=pw]').val();
+        if (id == '') {
+            $('#alert-id').text('아이디를 입력해주세요.');
+            $('input[name=id]').focus();
+            return false;
+        }
+        if (pw == '') {
+            $('#alert-pw').text('비밀번호를 입력해주세요.');
+            $('input[name=pw]').focus();
+            return false;
+        }
+        $.ajax({
+            url: './php/user/login.php',
+            type: 'POST',
+            data: {id: id, pw: pw},
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 200) {
+                    alert(data.message);
+                    location.href = './';
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+</script>
+</html>
