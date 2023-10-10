@@ -13,7 +13,7 @@ if ($id == null) {
 
 $result = checkId($id);
 
-$json;
+$json = array();
 if($result->num_rows > 0){
     $row = mysqli_fetch_array($result);
     if($row[0] == 0){
