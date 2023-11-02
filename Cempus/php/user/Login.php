@@ -1,6 +1,7 @@
 <?php
 
-include_once "./util/jwt.php";
+include_once '../common.php';
+include_once "util/JwtUtil.php";
 
 $id = $_POST['id'];
 $pw = $_POST['pw'];
@@ -19,8 +20,8 @@ if ($pw == null) {
     exit;
 }
 
-$sql = "SELECT * FROM user WHERE id = '$id' AND pw = '$pw'";
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT * FROM cempus_users WHERE USER_ID = '$id' AND USER_PW = '$pw'";
+$result = mysqli_query(getConnection(), $sql);
 $row = mysqli_fetch_array($result);
 
 if ($row == null) {
@@ -32,7 +33,7 @@ if ($row == null) {
 
 $json['result'] = "200";
 $json['message'] = "로그인 성공";
-$json['token'] = jwt($id);
+$_SESSION['token'] = jwt($row['IDX']);
 
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
 

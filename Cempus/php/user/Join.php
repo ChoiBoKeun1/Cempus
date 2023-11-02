@@ -1,5 +1,6 @@
 <?php
 
+include_once '../common.php';
 include_once './mapper/CheckId.php';
 
 $id = $_POST['id'];
@@ -36,8 +37,8 @@ if($result->num_rows <= 0){
     }
 }
 
-$sql = "INSERT INTO CTB_USER (id, pw) VALUES ('$id', '$pw')";
-$result = mysqli_query($conn, $sql);
+$sql = "INSERT INTO cempus_users (USER_ID, USER_PW) VALUES ('$id', '$pw')";
+$result = mysqli_query(getConnection(), $sql);
 
 if ($result) {
     $json['result'] = "200";

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>Cempus</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="img_index1">
+        <img src="./image/cempus/index/cong1.png" alt="축하합니다!" />
+        <div class="img_index2">
+          <img src="./image/cempus/index/cong2.png" alt="물개박수" />
+        </div>
+      </div>
+      <div class="layout_index1">
+        <div class="layout_index2">
+          <a href="/join.html" class="btn_sign_up"><div>SIGN UP</div></a>
+          <a href="/login.html" class="btn_sign_in"><div>SIGN_IN</div></a>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    $(function () {
+      confirmLogin();
+    });
+
+    function confirmLogin() {
+      $.ajax({
+        url: "./php/user/ConfirmLogin.php",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+          if (data.result == 200) {
+            alert(data.message);
+          } else {
+            alert(data.message);
+          }
+        },
+        error: function (request, status, error) {
+          console.log(request.responseText);
+        },
+      });
+    }
+  </script>
+</html>
