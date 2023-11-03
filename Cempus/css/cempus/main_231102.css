@@ -2,6 +2,11 @@ body {
   display: flex;
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
+
+}
+
+a {
+  text-decoration: none;
 }
 
 .container {
@@ -12,6 +17,7 @@ body {
   flex-wrap: wrap;
 }
 
+/*** 인덱스 ***/
 .img_index1 {
   width: 430px;
   text-align: center;
@@ -155,358 +161,161 @@ body {
 ****/
 
 /* 회원가입 */
-.container_join {
+.title {
   position: relative;
-  width: 430px;
-  height: 932px;
-
-  background: #ffffff;
-}
-/* scrn_tlt */
-.scrn_tlt {
-  position: absolute;
   width: 329px;
-  height: 194px;
-  left: 48px;
   top: 69px;
+  left: 48px;
 
-  font-family: "Poppins";
-  font-style: normal;
+  font-family: Poppins;
+  font-size: 35px;
   font-weight: 700;
-  font-size: 40px;
-  line-height: 208%;
+  line-height: 73px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  /* or 83px */
   display: flex;
   align-items: center;
 
   color: #000000;
 }
-/* group_id_join */
-.group_id_join {
-  position: absolute;
-  width: 329px;
+
+/* Group 17 */
+.layout_content {
+
   height: 91px;
-  left: 48px;
-  top: 288px;
-}
-/* tlt_id_join */
-.tlt_id_join {
-  position: absolute;
-  width: 34px;
-  height: 14px;
-  left: 48px;
-  top: 288px;
 
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 900;
+  margin: auto;
+}
+
+
+
+/* 아이디 */
+.content_tlt {
+  height: 14px;
+
+  font-family: Roboto;
   font-size: 12px;
+  font-weight: 900;
   line-height: 14px;
   letter-spacing: 0.03em;
+  text-align: left;
+
 
   color: #000000;
 }
-/* ok_join_id */
-.ok_join_id {
-  position: absolute;
-  width: 70px;
-  height: 12px;
-  left: 48px;
-  top: 367px;
 
-  font-family: "Roboto";
+
+/* 사용가능합니다. */
+.input_msg {
+  height: 12px;
+
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-size: 10px;
   line-height: 12px;
   letter-spacing: 0.03em;
-
-  color: #7b7b7b;
 }
-/* error_join_id */
-.error_join_id {
-  position: absolute;
-  width: 132px;
-  height: 12px;
-  left: 134px;
-  top: 367px;
 
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 10px;
-  line-height: 12px;
-  letter-spacing: 0.03em;
-
-  color: #ea3939;
+.msg_ok {
+  color: #7B7B7B;
 }
-/* input_id_join */
-.input_id_join {
-  position: absolute;
+
+
+/* 사용이 불가능한 아이디입니다. */
+.msg_err {
+  color: #EA3939;
+
+}
+
+.content_input_area {
+  width: 329px;
+  height: 47px;
+}
+
+.input_common {
+  width: 100%;
+  height: 100%;
+  background: #F5F4F8;
+  border: none;
+  border-radius: 10px;
+}
+
+.input_with_btn {
   width: 278px;
-  height: 47px;
-  left: 48px;
-  top: 311px;
 }
-/* input_id_shape */
-.input_id_shape {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
 
-  background: #f5f4f8;
+.btn_with_input {
+  width: 41px;
+  height: 47px;
+  border: none;
   border-radius: 10px;
+  color: #A1A5C1;
+
+  cursor: pointer;
 }
-/* Layout */
-.Layout {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 10px;
 
-  position: absolute;
-  visibility: hidden;
-  width: 63px;
-  height: 20px;
-  left: 16px;
-  top: 25px;
-}
-/* txt_id_join */
-.txt_id_join {
-  position: absolute;
-  width: 56px;
-  height: 14px;
-  left: 60px;
-  top: 325px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.03em;
-
-  color: #a1a5c1;
-}
-/* shple_form */
-.shple_form {
-  position: absolute;
-  width: 45px;
-  height: 47px;
-  left: 332px;
-  top: 312px;
-}
-/* shple_shape */
-.shple_shape {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-
-  background: #f5f4f8;
-  border-radius: 10px;
-}
-/* Layout */
-.Layout {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 10px;
-
-  position: absolute;
-  visibility: hidden;
-  width: 63px;
-  height: 20px;
-  left: 16px;
-  top: 25px;
-
-  display: none;
-  width: 56px;
-  height: 14px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.03em;
-
-  color: #a1a5c1;
-}
-/* shple_id_join */
-.shple_id_join {
-  position: absolute;
-  width: 21px;
-  height: 21px;
-  left: 344px;
-  top: 325px;
-}
-/* shple_icon */
-.shple_icon {
-  position: absolute;
-  left: 15.42%;
-  right: 15.21%;
-  top: 13.75%;
-  bottom: 14.02%;
-
-  background: #a1a5c1;
-}
-/* tlt_pwd_join */
-.tlt_pwd_join {
-  position: absolute;
-  width: 46px;
-  height: 14px;
-  left: 48px;
-  top: 388px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.03em;
-
-  color: #000000;
-}
-/* group_pwd_join */
-.group_pwd_join {
-  position: absolute;
-  width: 329px;
-  height: 47px;
-  left: 48px;
-  top: 411px;
-}
-/* input_pwd_join */
-.input_pwd_join {
-  position: absolute;
-  width: 329px;
-  height: 47px;
-  left: 48px;
-  top: 411px;
-}
-/* input_pwd_shape */
-.input_pwd_shape {
-  position: absolute;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-
-  background: #f5f4f8;
-  border-radius: 10px;
-}
-/* Layout */
-.Layout {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 10px;
-
-  position: absolute;
-  visibility: hidden;
-  width: 63px;
-  height: 20px;
-  left: 16px;
-  top: 25px;
-}
-/* txt_pwd_join */
-.txt_pwd_join {
-  position: absolute;
-  width: 53px;
-  height: 14px;
-  left: 60px;
-  top: 428px;
-
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  letter-spacing: 0.03em;
-
-  color: #a1a5c1;
-}
-/* layout_join */
-.layout_join {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  gap: 16px;
-
-  position: absolute;
-  width: 382px;
-  height: 58px;
-  left: 22px;
-  top: 702px;
-}
-/* btn_join */
-.btn_join {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 18px 16px;
-  gap: 10px;
-
-  width: 382px;
-  height: 58px;
-
-  background: #e7faf4;
-  border-radius: 100px;
-
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
-/* txt_join */
-.txt_join {
-  width: 350px;
-  height: 22px;
-
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 140%;
+.layout_btn_area {
   display: flex;
   align-items: center;
-  text-align: center;
-  letter-spacing: 0.2px;
+  padding: 32px 24px 36px;
+  gap: 32px;
 
-  color: #12d18e;
-
-  flex: none;
-  order: 0;
-  flex-grow: 1;
-
-  position: absolute;
-  visibility: hidden;
-  height: 44px;
   left: 0px;
   right: 0px;
-  top: 0px;
+  bottom: 65px;
 
-  position: absolute;
-  width: 27px;
-  height: 23px;
-  left: 23px;
-  top: calc(50% - 23px / 2 + 0.5px);
+  border-radius: 60px 60px 0px 0px;
 
-  font-family: "Urbanist";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 140%;
+  text-align: center;
+}
+
+.btn_sub_area {
   display: flex;
   align-items: center;
-  letter-spacing: 0.2px;
 
-  color: #000000;
+  width: 382px;
+  height: 132px;
+}
+
+.btn_confirm {
+  width: 100%;
+  height: 22px;
+
+  /* Primary/100 */
+  background: #e7faf4;
+  border-radius: 100px;
+  padding: 18px 16px;
+
+  color: #12D18E;
+
+  font-family: Urbanist;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.20000000298023224px;
+  text-align: center;
+
+}
+
+.btn_confirm2 {
+  width: 100%;
+  height: 22px;
+
+  /* Primary/100 */
+  background: #12D18E;
+  border-radius: 100px;
+  padding: 18px 16px;
+
+  color: #e7faf4;
+
+  font-family: Urbanist;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.20000000298023224px;
+  text-align: center;
+
 }

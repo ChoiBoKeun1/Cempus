@@ -5,24 +5,37 @@
     <title>로그인</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
   </head>
   <body>
-    <p>로그인</p>
-    <div class="input-txt">
-      <input type="text" name="id" placeholder="아이디" />
-      <p class="alert-msg" id="alert-id" style="display: none"></p>
+    <div class="container">
+      <div class="title">
+        로그인
+      </div>
+      <div class="layout_content">
+        <div class="content_tlt">아이디</div>
+        <div class="content_input_area">
+          <input type="hidden" name="dupChk" value="0" />
+          <input type="text" name="id" class="input_common" placeholder="아이디를 입력해주세요." oninput="this.value = this.value.replace(/[^a-z0-9]/g, '').replace(/(\..*)\./g, '$1');">
+        </div>
+        <p class="input_msg msg_err alert-msg" id="alert-id"></p>
+        <div class="content_tlt">비밀번호</div>
+        <div class="content_input_area">
+          <input type="password" name="pw" class="input_common" placeholder="비밀번호를 입력해주세요.">
+        </div>
+        <p class="input_msg msg_err alert-msg" id="alert-pw"></p>
+      </div>
+      <div class="layout_btn_area">
+        <div class="btn_sub_area">
+          <a href="#" class="btn_confirm2" onclick="login()"><div>SIGN IN</div></a>
+        </div>
+      </div>
     </div>
-    <div class="input-txt">
-      <input type="password" name="pw" placeholder="비밀번호" />
-      <p class="alert-msg" id="alert-pw" style="display: none"></p>
-    </div>
-
-    <div class="btn-submit">
-      <button type="button" onclick="login()">로그인</button>
-    </div>
-  </body>
   <script>
     function login() {
+      $('.alert-msg').text('');
+
       var id = $("input[name=id]").val();
       var pw = $("input[name=pw]").val();
       if (id == "") {
