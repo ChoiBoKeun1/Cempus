@@ -26,4 +26,19 @@ function decryptJwt($token) {
     }
 }
 
+function getUserIdx() {
+    $token = $_SESSION['token'];
+
+    if ( $token == null ) {
+        $json['result'] = "400";
+        $json['message'] = "로그인이 필요합니다.";
+        echo json_encode($json, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    $payload = decryptJwt($token);
+    $userIdx = json_decode($payload);
+    return $userIdx;
+}
+
 ?>
