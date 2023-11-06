@@ -14,6 +14,49 @@ $carbon = $_POST['carbon'];
 /// 1 = 3(시장가). 지금 있는 걸로 구매가 다 됨
 /// - 기존 탄소권 거래 테이블에 반영
 /// 및 거래 내역 테이블에 등록
+
+
+$sql = "INSERT INTO cempus_carbon_trades (
+            USER_IDX, 
+            CARBON_TRADE_TYPE, 
+            CASH, 
+            CARBON, 
+            PAID_CARBON,
+            DELETE_YN, 
+            COMPLETE_YN, 
+        ) VALUES (
+            '$userIdx',
+            'B',
+            '$cash',
+            '$carbon',
+            '$carbon',
+            'N',
+            'N',
+        )
+        ";
+$result = mysqli_query(getConnection(), $sql);
+$row = mysqli_fetch_array($result);
+
+$boardIdx = $row['IDX'];
+
+$sql2 = "INSERT INTO cempus_trades (
+            USER_IDX, 
+            TRADE_TYPE, 
+            CASH, 
+            CASH_FUNDING,
+            CARBON,
+            BOARD_IDX
+        ) VALUES (
+            '$userIdx',
+            'E',
+            '-$cash',
+            '$cash'
+            '$carbon',
+            '$boardIdx'
+        )
+        ";
+$result2 = mysqli_query(getConnection(), $sql2);
+
 /// 2. 지금 있는 걸로 구매가 부분 됨
 ///  1번도 하고
 ///  새로운 탄소권 거래 내역 생성
