@@ -2,10 +2,11 @@
 
 include_once '../common.php';
 include_once "util/JwtUtil.php";
+include_once "./mapper/GetAbleTradeList.php";
 
 $userIdx = getUserIdx();
 
-$dbData = getCarbonTradeList();
+$dbData = getAbleTradeList();
 
 $json['result'] = "200";
 $json['message'] = "입찰 성공";
