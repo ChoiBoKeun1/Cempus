@@ -6,7 +6,7 @@ include_once "./mapper/GetMyCompleteTradeList.php";
 
 $userIdx = getUserIdx();
 
-// cempus_carbon_trades에서 거래 중이 아닌 내 거래 목록 가져오기
+// cempus_trades에서 trade_type이 E, F인 것 조회
 $dbData = getMyCompleteTradeList($userIdx);
 
 $json['result'] = "200";
