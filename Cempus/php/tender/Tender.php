@@ -1,7 +1,7 @@
 <?php
 
 include_once '../common.php';
-include_once "util/JwtUtil.php";
+include_once "../user/util/JwtUtil.php";
 include_once "mapper/InsertTrade.php";
 
 $userIdx = getUserIdx();
@@ -15,9 +15,9 @@ if ($cashFunding == null || $cashFunding == "" || $cashFunding == 0) {
     exit;
 }
 
-$row = mysqli_fetch_array(insertTrade($userIdx, $cashFunding));
+$result = insertTrade($userIdx, $cashFunding);
 
-if ($row == null) {
+if (!$result) {
     $json['result'] = "500";
     $json['message'] = "서버 에러";
     echo json_encode($json, JSON_UNESCAPED_UNICODE);

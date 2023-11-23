@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>입찰성공</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="common_content_area">
+        <div class="common_image">
+          <img src="./image/cempus/tender/paper.svg">
+        </div>
+        <div class="common_title2">
+          탄소 배출권
+        </div>
+        <div class="common_image">
+          <img src="./image/cempus/tender/beenbak.svg">
+        </div>
+        <div class="common_title3">
+          \ <span id="tenderAmount">196,548.50</span>
+        </div>
+        <div class="common_content_text">
+          입찰이 완료되었습니다.
+          <div class="detail">지구를 위한 NET-ZERO 운동에 참여하세요</div>
+        </div>
+        <div class="btn_sub_area">
+          <a href="./" class="btn_confirm2"><div>홈으로 돌아가기</div></a>
+        </div>
+      </div>
+
+    </div>
+  <script>
+    $(function(){
+      var tenderAmount = getCookie('tenderAmount');
+      console.log(tenderAmount);
+        $('#tenderAmount').text(tenderAmount);
+    });
+
+    function getCookie(name) {
+      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return value? value[2] : null;
+    }
+  </script>
+</html>

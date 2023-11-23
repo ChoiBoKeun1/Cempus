@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>입찰하기</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="top_log_area">
+        <img src="./image/cempus/tender/top_logo.svg" alt="logo" class="logo" />
+        <img src="./image/cempus/tender/profile.svg" alt="menu" class="menu" />
+      </div>
+      <div class="my_info">
+        <img src="./image/cempus/tender/my_info_2.png" style="width: 100%">
+      </div>
+      <div class="tender_aply_area">
+        <label class="aply_label" for="aplyAmount">
+          입찰 금액
+        </label>
+        <div class="aply_amount">
+          <span class="won">\ </span><input type="text" id="aplyAmount" name="aplyAmount" placeholder="10,000"/>
+        </div>
+        <div class="btn_sub_area">
+          <a href="./tenderComplete.html" class="btn_confirm2" onclick="tenderApply()"><div>입찰하기</div></a>
+          <a href="javascript:window.history.go(-1);" class="btn_confirm"><div>이전화면으로 돌아가기</div></a>
+        </div>
+      </div>
+
+  <script>
+    // 입력된 텍스트의 너비에 따라 요소의 너비 변경
+    function adjustWidth() {
+      console.log('in');
+      const textInput = $("#aplyAmount");
+      const myElement = $("#aplyAmount");
+
+      // 입력된 텍스트의 길이 가져오기
+      const textLength = textInput.val().length;
+
+      // 요소의 너비 변경
+      myElement.css("width", ((textLength * 28) < 320 ? (textLength * 28) : 320) + "px");
+    }
+
+    // 입력 텍스트가 변경될 때마다 요소의 너비 조절
+    $("#aplyAmount").on("input", adjustWidth);
+
+    function tenderApply() {
+        var aplyAmount = $("#aplyAmount").val();
+
+        if (aplyAmount == "") {
+            alert("입찰 금액을 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: "./php/tender/Tender.php",
+            type: "POST",
+            data: {
+              'cashFunding': aplyAmount
+            },
+            dataType: "json",
+            success: function(data) {
+                if (data.result == "200") {
+                    alert("입찰에 성공했습니다.");
+                    // window.location.href = "./tenderList.php";
+                    setCookie("tenderAmount", aplyAmount, 1);
+                } else {
+                    alert("입찰에 실패했습니다.");
+                }
+            },
+            error: function(request, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function setCookie(name, value, exp) {
+        var date = new Date();
+        date.setTime(date.getTime() + exp*24*60*60*1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    }
+
+  </script>
+</html>

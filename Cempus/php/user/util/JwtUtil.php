@@ -37,8 +37,9 @@ function getUserIdx() {
     }
 
     $payload = decryptJwt($token);
-    $userIdx = json_decode($payload);
-    return $userIdx;
+    $data = json_decode($payload, true)['id'];
+
+    return (int)$data;
 }
 
 ?>

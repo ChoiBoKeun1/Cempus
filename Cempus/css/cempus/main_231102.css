@@ -2,7 +2,7 @@ body {
   display: flex;
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
-
+margin: 0;
 }
 
 a {
@@ -318,4 +318,248 @@ a {
   letter-spacing: 0.20000000298023224px;
   text-align: center;
 
+}
+
+/** tender **/
+
+.tender_container {
+  display: initial;
+}
+
+.image_sub_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+  height: 371px;
+
+  background: url('../../image/cempus/tender/frame.png') no-repeat center;
+  background-size: contain;
+}
+
+.image_sub_title {
+  width: calc(100% - 60px);
+  padding: 50px 30px;
+
+  color: var(--others-white, #FFF);
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+}
+.image_sub_title > img {
+  position: relative;
+  top: 5px;
+  left: -5px;
+  width: 28px;
+  height: 28px;
+}
+
+.common_content_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+  margin-top: 36px;
+
+}
+
+.common_title {
+  color: var(--alerts-status-success, #12D18E);
+  text-align: center;
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 28px */
+  letter-spacing: 0.2px;
+}
+
+.tender_content {
+  padding: 12px 20px 20px 20px;
+  align-self: stretch;
+  border-radius: 24px;
+  border: 1px solid var(--greyscale-200, #EEE);
+  background: var(--greyscale-50, #FAFAFA);
+}
+
+.total_tender {
+  align-self: stretch;
+
+  color: var(--greyscale-900, #212121);
+  text-align: center;
+  /* H2/bold */
+  font-family: Urbanist;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 64px */
+
+}
+.cmpr_yesterday {
+  color: var(--alerts-status-success, #12D18E);
+  /* body / large / semibold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.cmpr_yesterday > img {
+  position: relative;
+  top: 5px;
+  left: -5px;
+}
+.common_content_area > .btn_sub_area {
+  height: 115px;
+}
+.common_content_area > .btn_sub_area > .btn_confirm2 {
+  color: var(--others-white, #FFF);
+  text-align: center;
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: 0.2px;
+  height: auto;
+}
+
+/** tender apply **/
+
+.top_log_area {
+  display: flex;
+  padding: 30px;
+  width: calc(100% - 60px);
+  justify-content: space-between;
+}
+
+.aply_label {
+  display: block;
+  padding: 8px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 100px;
+  border: 2px solid var(--primary-500, #12D18E);
+
+  color: var(--primary-500, #12D18E);
+  text-align: center;
+
+  /* body / large / semibold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 22.4px */
+  letter-spacing: 0.2px;
+
+  width: 80px;
+  margin: 0 auto;
+}
+
+.aply_amount {
+  width: 382px;
+  height: 90px;
+  padding: 32px 20px;
+  border-radius: 32px;
+  border: 3px solid var(--primary-500, #12D18E);
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.aply_amount > .won {
+
+}
+
+.aply_amount > input, .aply_amount > .won {
+  align-self: stretch;
+  color: var(--greyscale-900, #212121);
+  text-align: center;
+
+  /* H1/bold */
+  font-family: Urbanist;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%;
+  border: none;
+  width: 200px;
+}
+.tender_aply_area > .btn_sub_area {
+  margin: 0 auto;
+  color: var(--others-white, #FFF);
+  text-align: center;
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: 0.2px;
+  flex-direction: column;
+  height: 180px;
+  justify-content: space-evenly;
+}
+
+.common_title2 {
+  align-self: stretch;
+
+  color: var(--greyscale-900, #212121);
+  text-align: center;
+
+  /* H3/bold */
+  font-family: Urbanist;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 51.2px */
+}
+
+.common_title3 {
+  align-self: stretch;
+
+  color: var(--primary-500, #12D18E);
+  text-align: center;
+
+  /* H1/bold */
+  font-family: Urbanist;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 76.8px */
+}
+
+.common_content_text {
+  color: var(--greyscale-900, #212121);
+  text-align: center;
+
+  /* H5/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+}
+
+.common_content_text > .detail {
+  color: var(--greyscale-600, #757575);
+  text-align: center;
+
+  /* body / xlarge / medium */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 25.2px */
+  letter-spacing: 0.2px;
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>입찰 화면</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="image_sub_area">
+        <div class="image_sub_title">
+          <img src="./image/cempus/tender/title_logo.svg" alt="타이틀로고">탄소배출권 거래 현황
+        </div>
+        <div class="chart_area">차트가 들어갈 곳</div>
+      </div>
+      <div class="common_content_area">
+        <div class="common_title">
+          총 모금 금액
+        </div>
+        <div class="tender_content">
+          <div class="total_tender">
+            \ <span id="totalTender">196,548.50</span>
+          </div>
+          <div class="cmpr_yesterday">
+            <img src="./image/cempus/tender/arrow_up.svg" alt="상승"> \ <span id="todayTotalTender">66,378.49</span> <span id="percentText">(<span id="percent">24.65</span>%)</span>
+          </div>
+        </div>
+        <div class="btn_sub_area">
+          <a href="./tenderApply.html" class="btn_confirm2"><div>입찰하기</div></a>
+        </div>
+      </div>
+      <div class="my_info">
+        내 정보가 들어갈 곳
+      </div>
+  <script>
+    $(document).ready(function () {
+      getTotalTender();
+    });
+    function getTotalTender() {
+        $.ajax({
+            url: "./php/tender/TotalTender.php",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+              if(data.result == 200) {
+                var totalTender = data.totalTender;
+                var yesterdayTotalTender = data.yesterdayTotalTender;
+                var todayTotalTender = totalTender -yesterdayTotalTender;
+                $('#totalTender').text(totalTender);
+                $('#todayTotalTender').text(todayTotalTender);
+                if (totalTender == 0 || todayTotalTender == totalTender) {
+                  $('#percentText').hide();
+                  return;
+                }
+                $('#percent').text((todayTotalTender / totalTender * 100).toFixed(2));
+              } else {
+                alert(data.message);
+              }
+
+            },
+            error: function (request, status, error) {
+            console.log(request.responseText);
+            console.log(error);
+            },
+        });
+    }
+  </script>
+</html>

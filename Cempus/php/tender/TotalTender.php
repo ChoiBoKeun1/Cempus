@@ -20,8 +20,8 @@ $row2 = mysqli_fetch_array(getYesterdayTotalTender());
 // 결과 값을 넣어줘야한다
 $json['result'] = "200";
 $json['message'] = "입찰 성공";
-$json['totalTender'] = $row[0];
-$json['yesterdayTotalTender'] = $row2[0];
+$json['totalTender'] = (int) $row[0];
+$json['yesterdayTotalTender'] = (int) $row2[0];
 
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
