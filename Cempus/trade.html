@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>탄소권 거래</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="top_log_area">
+        <img src="./image/cempus/tender/top_logo.svg" alt="logo" class="logo" />
+        <img src="./image/cempus/tender/profile.svg" alt="menu" class="menu" />
+      </div>
+      <div class="board_list">
+        <div class="trade_want sell_want">
+          <div class="trade_logo"><img src="./image/cempus/trade/Ellipse.png"></div>
+          <div class="trade_price">\198,500</div>
+          <div class="trade_amount">t207.00</div>
+        </div>
+        <div class="trade_want sell_want">
+          <div class="trade_logo"><img src="./image/cempus/trade/Ellipse.png"></div>
+          <div class="trade_price">\198,500</div>
+          <div class="trade_amount">t207.00</div>
+        </div>
+        <div class="trade_want buy_want">
+        <div class="trade_logo"><img src="./image/cempus/trade/buy.png"></div>
+        <div class="trade_price">\198,500</div>
+        <div class="trade_amount">t207.00</div>
+      </div>
+        <div class="trade_want buy_want">
+        <div class="trade_logo"><img src="./image/cempus/trade/buy.png"></div>
+        <div class="trade_price">\198,500</div>
+        <div class="trade_amount">t207.00</div>
+      </div>
+      </div>
+      <div class="my_info">
+        <img src="./image/cempus/tender/my_info_2.png" style="width: 100%">
+      </div>
+      <div class="trade_btn_area">
+        <a href="#" class="btn_confirm half_btn"><div>Sell</div></a>
+        <a href="#" class="btn_confirm2 half_btn"><div>Buy</div></a>
+      </div>
+      <div class="trade_input_area">
+        <div class="trade_title">단가</div>
+        <div class="trade_cash">
+          <span class="won">\ </span><input type="text" id="tradeAmount" name="tradeAmount" placeholder="10,000"/>
+        </div>
+      </div>
+      <div class="trade_info_area">
+        <div class="div1">
+          <div class="trade_title">구매 수량</div>
+          <div class="trade_carbon">
+            <input type="text" id="tradeCarbonAmount" name="tradeCarbonAmount" placeholder="10,000"/>
+          </div>
+        </div>
+        <div class="div2">
+          <div class="trade_title">총 결제금액</div>
+          <div class="total_cash btn_confirm">\ 45,160,500</div>
+        </div>
+      </div>
+      <div class="trade_btn_area">
+        <a href="#" class="btn_confirm half_btn"><div>시장가거래</div></a>
+        <a href="#" class="btn_confirm2 half_btn"><div>지정가거래</div></a>
+      </div>
+
+    </div>
+  <script>
+    // 입력된 텍스트의 너비에 따라 요소의 너비 변경
+    function adjustWidth() {
+      console.log('in');
+      const textInput = $("#tradeAmount");
+      const myElement = $("#tradeAmount");
+
+      // 입력된 텍스트의 길이 가져오기
+      const textLength = textInput.val().length;
+
+      // 요소의 너비 변경
+      var textSize = 22;
+      myElement.css("width", ((textLength * textSize) < 320 ? (textLength * textSize) : 320) + "px");
+    }
+
+    // 입력 텍스트가 변경될 때마다 요소의 너비 조절
+    $("#tradeAmount").on("input", adjustWidth);
+
+    $(function() {
+    getCarbonTradeList();
+    });
+
+    function getCarbonTradeList() {
+      $.get("./php/trade/GetCarbonTradeList.php", function(data) {
+        console.log(data);
+        var tradeList = JSON.parse(data);
+        console.log(tradeList);
+        var tradeListHtml = "";
+        for (var i = 0; i < tradeList.length; i++) {
+          var trade = tradeList[i];
+          var tradeHtml = "";
+          if (trade['carbonTradeType'] == "A") {
+            tradeHtml += '<div class="trade_want sell_want">';
+            tradeHtml += '<div class="trade_logo"><img src="./image/cempus/trade/Ellipse.png"></div>';
+            tradeHtml += '<div class="trade_price">\\' + trade['cash'] + '</div>';
+            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + '</div>';
+            tradeHtml += '</div>';
+          } else {
+            tradeHtml += '<div class="trade_want buy_want">';
+            tradeHtml += '<div class="trade_logo"><img src="./image/cempus/trade/buy.png"></div>';
+            tradeHtml += '<div class="trade_price">\\' + trade['cash'] + '</div>';
+            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + '</div>';
+            tradeHtml += '</div>';
+          }
+          tradeListHtml += tradeHtml;
+        }
+        $(".board_list").html(tradeListHtml);
+      });
+    }
+  </script>
+  </body>
+
+</html>

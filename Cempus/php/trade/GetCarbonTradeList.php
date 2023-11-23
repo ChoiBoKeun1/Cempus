@@ -1,12 +1,12 @@
 <?php
 
 include_once '../common.php';
-include_once "util/JwtUtil.php";
-include_once "./mapper/GetAbleTradeList.php";
+include_once "../../user/util/JwtUtil.php";
+include_once "./mapper/GetCarbonTradeList.php";
 
 $userIdx = getUserIdx();
 
-$dbData = getAbleTradeList();
+$dbData = getCarbonTradeList();
 
 $json['result'] = "200";
 $json['message'] = "입찰 성공";
