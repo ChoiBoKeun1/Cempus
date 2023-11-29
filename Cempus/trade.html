@@ -40,8 +40,8 @@
         <img src="./image/cempus/tender/my_info_2.png" style="width: 100%">
       </div>
       <div class="trade_btn_area">
-        <a href="#" class="btn_confirm half_btn"><div>Sell</div></a>
-        <a href="#" class="btn_confirm2 half_btn"><div>Buy</div></a>
+        <a href="#" class="btn_confirm half_btn sellTab" onclick="tabChange('Sell');"><div>Sell</div></a>
+        <a href="#" class="btn_confirm2 half_btn buyTab" onclick="tabChange('Buy');"><div>Buy</div></a>
       </div>
       <div class="trade_input_area">
         <div class="trade_title">단가</div>
@@ -63,7 +63,7 @@
       </div>
       <div class="trade_btn_area">
         <a href="#" class="btn_confirm half_btn"><div>시장가거래</div></a>
-        <a href="#" class="btn_confirm2 half_btn"><div>지정가거래</div></a>
+        <a href="#" onclick="selectPriceTrade();" class="btn_confirm2 half_btn"><div>지정가거래</div></a>
       </div>
 
     </div>
@@ -86,35 +86,80 @@
     $("#tradeAmount").on("input", adjustWidth);
 
     $(function() {
-    getCarbonTradeList();
+      getCarbonTradeList();
     });
 
     function getCarbonTradeList() {
       $.get("./php/trade/GetCarbonTradeList.php", function(data) {
         console.log(data);
-        var tradeList = JSON.parse(data);
-        console.log(tradeList);
+        var result = JSON.parse(data);
+        console.log(result);
+        if(result.result == 400) {
+          alert('로그인이 필요합니다.');
+          location.href = "./login.html"
+          return false;
+        }
         var tradeListHtml = "";
-        for (var i = 0; i < tradeList.length; i++) {
-          var trade = tradeList[i];
+        for (var i = 0; i < result.carbonTradeList.length; i++) {
+          var trade = result.carbonTradeList[i];
           var tradeHtml = "";
           if (trade['carbonTradeType'] == "A") {
             tradeHtml += '<div class="trade_want sell_want">';
             tradeHtml += '<div class="trade_logo"><img src="./image/cempus/trade/Ellipse.png"></div>';
             tradeHtml += '<div class="trade_price">\\' + trade['cash'] + '</div>';
-            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + '</div>';
+            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + 'T</div>';
             tradeHtml += '</div>';
           } else {
             tradeHtml += '<div class="trade_want buy_want">';
             tradeHtml += '<div class="trade_logo"><img src="./image/cempus/trade/buy.png"></div>';
             tradeHtml += '<div class="trade_price">\\' + trade['cash'] + '</div>';
-            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + '</div>';
+            tradeHtml += '<div class="trade_amount">' + trade['carbon'] + 'T</div>';
             tradeHtml += '</div>';
           }
           tradeListHtml += tradeHtml;
+
+          console.log(tradeHtml);
         }
         $(".board_list").html(tradeListHtml);
       });
+    }
+
+    var carbonTradeType = 'B';
+
+    function selectPriceTrade() {
+      var data = {
+        'carbonTradeType': carbonTradeType,
+        'allTradeYn': 'N',
+        'cash': $('#tradeAmount').val(),
+        'carbon': $('#tradeCarbonAmount').val()
+      };
+
+      console.log(data);
+      $.post('./php/trade/InsertCarbonTrade.php', data, function(result) {
+        console.log(result);
+        if (result.result) {
+            alert('거래가 성공적으로 등록되었습니다.');
+            getCarbonTradeList();
+            } else {
+            alert('거래 등록에 실패하였습니다.');
+        }
+      });
+    }
+
+    function tabChange(type) {
+      if(type == 'Sell') {
+        $('.sellTab').addClass('btn_confirm2');
+        $('.sellTab').removeClass('btn_confirm');
+        $('.buyTab').addClass('btn_confirm');
+        $('.buyTab').removeClass('btn_confirm2');
+        carbonTradeType = 'A';
+      } else {
+        $('.sellTab').addClass('btn_confirm');
+        $('.sellTab').removeClass('btn_confirm2');
+        $('.buyTab').addClass('btn_confirm2');
+        $('.buyTab').removeClass('btn_confirm');
+        carbonTradeType = 'B';
+      }
     }
   </script>
   </body>

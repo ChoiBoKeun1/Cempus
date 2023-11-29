@@ -15,36 +15,44 @@ function getCarbonTradeList() {
     $sql4 = "SELECT COUNT(*) FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'B' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N'";
     $result4 = mysqli_query(getConnection(), $sql4);
 
-    $row = mysqli_fetch_array($result);
-    $row2 = mysqli_fetch_array($result2);
-    $row3 = mysqli_fetch_array($result3);
-    $row4 = mysqli_fetch_array($result4);
-
-    if ($row3 == null || $row4 == null || ($row3 > 0 && $row == null) || ($row4 > 0 && $row2 == null)) {
-        $json['result'] = "500";
-        $json['message'] = "서버 에러";
+    if (!$result || !$result2 || !$result3 || !$result4) {
+        $json['result'] = "404";
+        $json['message'] = "목록 없음";
         echo json_encode($json, JSON_UNESCAPED_UNICODE);
         exit;
     }
+    $row3 = mysqli_fetch_array($result3);
+    $row4 = mysqli_fetch_array($result4);
 
     $rowCount1 = $row3[0];
+    if ($rowCount1 > 2) {
+        $rowCount1 = 2;
+    }
     $rowCount2 = $row4[0];
+    if ($rowCount2 > 2) {
+        $rowCount2 = 2;
+    }
 
+    $carbonTradeList = array();
     for ($i = $rowCount1 - 1; $i >= 0; $i--) {
         $row = mysqli_fetch_array($result);
-        $json['carbonTradeList'][$i]['cash'] = $row['CASH'];
-        $json['carbonTradeList'][$i]['carbon'] = $row['CARBON'];
-        $json['carbonTradeList'][$i]['onePrice'] = $row['ONE_PRICE'];
-        $json['carbonTradeList'][$i]['carbonTradeType'] = $row['CARBON_TRADE_TYPE'];
+        $data['cash'] = $row['CASH'];
+        $data['carbon'] = $row['CARBON'] - $row['PAID_CARBON'];
+        $data['onePrice'] = $row['ONE_PRICE'];
+        $data['carbonTradeType'] = $row['CARBON_TRADE_TYPE'];
+        array_push($carbonTradeList, $data);
     }
 
     for ($i = 0; $i < $rowCount2; $i++) {
         $row2 = mysqli_fetch_array($result2);
-        $json['carbonTradeList'][$i]['cash'] = $row2['CASH'];
-        $json['carbonTradeList'][$i]['carbon'] = $row2['CARBON'];
-        $json['carbonTradeList'][$i]['onePrice'] = $row2['ONE_PRICE'];
-        $json['carbonTradeList'][$i]['carbonTradeType'] = $row2['CARBON_TRADE_TYPE'];
+        $data['cash'] = $row2['CASH'];
+        $data['carbon'] = $row2['CARBON'] - $row2['PAID_CARBON'];
+        $data['onePrice'] = $row2['ONE_PRICE'];
+        $data['carbonTradeType'] = $row2['CARBON_TRADE_TYPE'];
+        array_push($carbonTradeList, $data);
     }
+
+    $json['carbonTradeList'] = $carbonTradeList;
 
     return $json;
 }
