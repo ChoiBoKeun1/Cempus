@@ -1,7 +1,7 @@
 <?php
 
 include_once '../common.php';
-include_once "util/JwtUtil.php";
+include_once "../user/util/JwtUtil.php";
 include_once "./mapper/GetMyAsset.php";
 
 $userIdx = getUserIdx();

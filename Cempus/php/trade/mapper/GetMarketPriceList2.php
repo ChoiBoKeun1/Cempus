@@ -2,7 +2,7 @@
 
 include_once '../common.php';
 
-function getMarketPriceList($tradeType, $cash) {
+function getMarketPriceList($tradeType) {
     // $tradeType : A(판매), B(구매)
     // $cash : 구매자가 사려고 하는 단가
     $sql = '';

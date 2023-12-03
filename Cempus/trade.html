@@ -37,33 +37,50 @@
       </div>
       </div>
       <div class="my_info">
-        <img src="./image/cempus/tender/my_info_2.png" style="width: 100%">
+          <div class="my_info_title">My Account</div>
+            <div class="my_info_content">
+            <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/trade/wallet.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">현금</div>
+                  <div class="my_info_sub_content" id="myCash">\ 0.00</div>
+                </div>
+            </div>
+              <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/trade/carbon.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">탄소 배출권</div>
+                  <div class="my_info_sub_content" id="myCarbon">t 0.00</div>
+                </div>
+              </div>
+            </div>
       </div>
       <div class="trade_btn_area">
-        <a href="#" class="btn_confirm half_btn sellTab" onclick="tabChange('Sell');"><div>Sell</div></a>
-        <a href="#" class="btn_confirm2 half_btn buyTab" onclick="tabChange('Buy');"><div>Buy</div></a>
+        <a href="javascript:void(0);" class="btn_confirm half_btn sellTab" onclick="tabChange('Sell');"><div>Sell</div></a>
+        <a href="javascript:void(0);" class="btn_confirm2 half_btn buyTab" onclick="tabChange('Buy');"><div>Buy</div></a>
       </div>
       <div class="trade_input_area">
-        <div class="trade_title">단가</div>
+        <div class="trade_title">입찰 금액</div>
         <div class="trade_cash">
-          <span class="won">\ </span><input type="text" id="tradeAmount" name="tradeAmount" placeholder="10,000"/>
+          <span class="won">\ </span><input type="text" id="tradeAmount" name="tradeAmount" placeholder="10,000" oninput="calculateTotal();"/>
         </div>
+        <div class="select_trade select_trade_active" onclick="tradeTypeChange('A');">지정가</div>
+        <div class="select_trade" onclick="tradeTypeChange('B');">시장가</div>
       </div>
       <div class="trade_info_area">
         <div class="div1">
-          <div class="trade_title">구매 수량</div>
+          <div class="trade_title">수량(T)</div>
           <div class="trade_carbon">
-            <input type="text" id="tradeCarbonAmount" name="tradeCarbonAmount" placeholder="10,000"/>
+            <input type="text" id="tradeCarbonAmount" name="tradeCarbonAmount" placeholder="10,000" oninput="calculateTotal();"/>
           </div>
         </div>
         <div class="div2">
           <div class="trade_title">총 결제금액</div>
-          <div class="total_cash btn_confirm">\ 45,160,500</div>
+          <div class="total_cash btn_confirm"></div>
         </div>
       </div>
       <div class="trade_btn_area">
-        <a href="#" class="btn_confirm half_btn"><div>시장가거래</div></a>
-        <a href="#" onclick="selectPriceTrade();" class="btn_confirm2 half_btn"><div>지정가거래</div></a>
+        <a href="javascript:void(0);" onclick="selectPriceTrade();" class="btn_confirm2 full_btn"><div>거래 신청</div></a>
       </div>
 
     </div>
@@ -78,8 +95,9 @@
       const textLength = textInput.val().length;
 
       // 요소의 너비 변경
-      var textSize = 22;
-      myElement.css("width", ((textLength * textSize) < 320 ? (textLength * textSize) : 320) + "px");
+      var textSize = 19;
+      var maxSize = 125;
+      myElement.css("width", ((textLength * textSize) < 125 ? (textLength * textSize) : 125) + "px");
     }
 
     // 입력 텍스트가 변경될 때마다 요소의 너비 조절
@@ -87,6 +105,8 @@
 
     $(function() {
       getCarbonTradeList();
+
+      getMyAsset();
     });
 
     function getCarbonTradeList() {
@@ -126,18 +146,30 @@
 
     var carbonTradeType = 'B';
 
+    var tradeType = '지정가';
+
+    function calculateTotal() {
+      var cash = $('#tradeAmount').val();
+      var carbon = $('#tradeCarbonAmount').val();
+      var total = cash * carbon;
+      $('.total_cash').html('\\ ' + total);
+    }
+
     function selectPriceTrade() {
       var data = {
         'carbonTradeType': carbonTradeType,
-        'allTradeYn': 'N',
+        'allTradeYn': tradeType == '시장가' ? 'Y' : 'N',
         'cash': $('#tradeAmount').val(),
         'carbon': $('#tradeCarbonAmount').val()
       };
 
       console.log(data);
-      $.post('./php/trade/InsertCarbonTrade.php', data, function(result) {
+      $.post('./php/trade/InsertCarbonTrade2.php', data, function(data) {
         console.log(result);
-        if (result.result) {
+        console.log(data);
+        var result = JSON.parse(data);
+        console.log(result);
+        if (result.result==200) {
             alert('거래가 성공적으로 등록되었습니다.');
             getCarbonTradeList();
             } else {
@@ -160,6 +192,76 @@
         $('.buyTab').removeClass('btn_confirm');
         carbonTradeType = 'B';
       }
+
+      disableChange();
+    }
+
+    function tradeTypeChange(type) {
+      if(type == 'A') {
+        $('.select_trade').eq(0).addClass('select_trade_active');
+        $('.select_trade').eq(1).removeClass('select_trade_active');
+        tradeType = '지정가';
+
+      } else {
+        $('.select_trade').eq(0).removeClass('select_trade_active');
+        $('.select_trade').eq(1).addClass('select_trade_active');
+        tradeType = '시장가';
+
+      }
+
+      disableChange();
+    }
+
+    function disableChange() {
+
+      if(carbonTradeType == 'B' && tradeType== '시장가') {
+        $('#tradeCarbonAmount').attr('disabled', true);
+        $('#tradeCarbonAmount').val('');
+        $('#tradeCarbonAmount').prop('placeholder', '-');
+
+        $('#tradeAmount').attr('disabled', false);
+        $('#tradeAmount').val('');
+        $('#tradeAmount').prop('placeholder', '10,000');
+      } else if (carbonTradeType == 'A' && tradeType== '시장가') {
+        $('#tradeAmount').attr('disabled', true);
+        $('#tradeAmount').val('');
+        $('#tradeAmount').prop('placeholder', '-');
+
+        $('#tradeCarbonAmount').attr('disabled', false);
+        $('#tradeCarbonAmount').val('');
+        $('#tradeCarbonAmount').prop('placeholder', '10,000');
+      } else {
+        $('#tradeCarbonAmount').attr('disabled', false);
+        $('#tradeCarbonAmount').val('');
+        $('#tradeCarbonAmount').prop('placeholder', '10,000');
+
+        $('#tradeAmount').attr('disabled', false);
+        $('#tradeAmount').val('');
+        $('#tradeAmount').prop('placeholder', '10,000');
+      }
+    }
+
+
+    function getMyAsset() {
+        $.get("./php/mypage/MyAsset.php", function(data) {
+            console.log(data);
+            var result = JSON.parse(data);
+            console.log(result);
+            if(result.result == 400) {
+            alert('로그인이 필요합니다.');
+            location.href = "./login.html"
+            return false;
+            }
+          var userCash = numberWithCommas('\\ '+result.data.userCash);
+          var userCarbon = numberWithCommas(result.data.userCarbon+' T');
+          $('#myCash').html(userCash);
+            $('#myCarbon').html(userCarbon);
+        });
+
+    }
+
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   </script>
   </body>

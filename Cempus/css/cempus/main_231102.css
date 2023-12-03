@@ -3,6 +3,8 @@ body {
   justify-content: center; /* Horizontally center */
   align-items: center; /* Vertically center */
 margin: 0;
+  font-family: Urbanist;
+  font-weight: 700;
 }
 
 a {
@@ -650,11 +652,12 @@ margin-left: 24px;
 }
 
 .trade_cash {
-    width: 100%;
+    width: 200px;
     border-radius: 32px;
     border: 3px solid var(--primary-500, #12D18E);
     text-align: center;
     margin: 0 auto;
+  display: inline-block;
 }
 
 .trade_cash > input, .trade_cash > .won {
@@ -664,12 +667,12 @@ margin-left: 24px;
 
   /* H1/bold */
   font-family: Urbanist;
-  font-size: 36px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 700;
   line-height: 160%;
   border: none;
-  width: 200px;
+  width: 125px;
 }
 
 .trade_info_area {
@@ -718,3 +721,88 @@ width:50%;}
 
 .trade_btn_area {
 margin: 15px 0}
+
+.select_trade {
+  width: 85px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 20px;
+  line-height: 66px;
+  text-align: center;
+  margin-left: 15px;
+  background: #e7faf4;
+  color: var(--primary-500, #12D18E);
+  cursor: pointer;
+}
+
+.select_trade_active {
+  background: var(--primary-500, #12D18E);
+  color: white;
+  cursor: default;
+}
+
+.full_btn {
+  display: inline-block;
+  width: calc(100% - 30px);
+  padding: 18px 14px;
+}
+
+.my_info {
+  width: 382px;
+  height: 110px;
+
+  margin: 0 auto;
+}
+
+.my_info_title {
+  width: 382px;
+
+  color: var(--greyscale-900, #212121);
+  /* H5/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+}
+
+.my_info_sub_title {
+  color: var(--greyscale-600, #757575);
+  /* body / medium / semibold */
+  font-family: Urbanist;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: 0.2px;
+
+  align-self: stretch;
+}
+
+.my_info_sub_content {
+  align-self: stretch;
+  color: var(--greyscale-900, #212121);
+  /* H6/bold */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 28.8px */
+}
+
+.my_info_content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin: 12px 0;
+}
+
+.my_info_content_left {
+  display: flex;
+  width: 185px;
+  align-items: center;
+  gap: 16px;
+}

@@ -3,10 +3,10 @@
 include_once '../common.php';
 
 function getCarbonTradeList() {
-    $sql = "SELECT *, ( CASH / CARBON ) AS ONE_PRICE FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'A' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N' ORDER BY ONE_PRICE ASC LIMIT 0, 2";
+    $sql = "SELECT A.* FROM (SELECT * FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'A' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N' ORDER BY CASH ASC LIMIT 0, 2) A ORDER BY A.CASH DESC";
     $result = mysqli_query(getConnection(), $sql);
 
-    $sql2 = "SELECT *, ( CASH / CARBON ) AS ONE_PRICE FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'B' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N' ORDER BY ONE_PRICE DESC LIMIT 0, 2";
+    $sql2 = "SELECT * FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'B' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N' ORDER BY CASH DESC LIMIT 0, 2";
     $result2 = mysqli_query(getConnection(), $sql2);
 
     $sql3 = "SELECT COUNT(*) FROM cempus_carbon_trades WHERE CARBON_TRADE_TYPE = 'A' AND `DELETE_YN` = 'N' AND `COMPLETE_YN` = 'N'";
@@ -38,7 +38,6 @@ function getCarbonTradeList() {
         $row = mysqli_fetch_array($result);
         $data['cash'] = $row['CASH'];
         $data['carbon'] = $row['CARBON'] - $row['PAID_CARBON'];
-        $data['onePrice'] = $row['ONE_PRICE'];
         $data['carbonTradeType'] = $row['CARBON_TRADE_TYPE'];
         array_push($carbonTradeList, $data);
     }
@@ -47,7 +46,6 @@ function getCarbonTradeList() {
         $row2 = mysqli_fetch_array($result2);
         $data['cash'] = $row2['CASH'];
         $data['carbon'] = $row2['CARBON'] - $row2['PAID_CARBON'];
-        $data['onePrice'] = $row2['ONE_PRICE'];
         $data['carbonTradeType'] = $row2['CARBON_TRADE_TYPE'];
         array_push($carbonTradeList, $data);
     }
