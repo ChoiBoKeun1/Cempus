@@ -1,7 +1,7 @@
 <?php
 
 include_once '../common.php';
-include_once "util/JwtUtil.php";
+include_once "../user/util/JwtUtil.php";
 include_once "./mapper/GetMyCompleteTradeList.php";
 
 $userIdx = getUserIdx();
@@ -11,7 +11,7 @@ $dbData = getMyCompleteTradeList($userIdx);
 
 $json['result'] = "200";
 $json['message'] = "내 거래종료 목록 조회 성공";
-$json['myCompleteTradeList'] = $dbData['myCompleteTradeList'];
+$json['list'] = $dbData;
 
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
 

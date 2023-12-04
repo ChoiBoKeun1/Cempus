@@ -11,8 +11,8 @@
   <body>
     <div class="container tender_container">
       <div class="top_log_area">
-        <img src="./image/cempus/tender/top_logo.svg" alt="logo" class="logo" />
-        <img src="./image/cempus/tender/profile.svg" alt="menu" class="menu" />
+        <img src="./image/cempus/tender/top_logo.svg" alt="logo" class="logo" onclick="location.href='./home.html'" />
+        <img src="./image/cempus/tender/profile.svg" alt="menu" class="menu" onclick="location.href='./mypage.html';" />
       </div>
       <div class="board_list">
         <div class="trade_want sell_want">
@@ -252,15 +252,18 @@
             location.href = "./login.html"
             return false;
             }
-          var userCash = numberWithCommas('\\ '+result.data.userCash);
-          var userCarbon = numberWithCommas(result.data.userCarbon+' T');
+          var userCash = '\\ '+numberWithCommas(result.data.userCash);
+          var userCarbon = numberWithCommas(result.data.userCarbon)+' T';
           $('#myCash').html(userCash);
-            $('#myCarbon').html(userCarbon);
+          $('#myCarbon').html(userCarbon);
         });
 
     }
 
     function numberWithCommas(x) {
+      if (x == null || x == undefined || x == '' || x == 0 || x == '0' || x == '0.00' || x == 0.00 || x == '0.0' || x == 0.0 || x == '0.000' || x == 0.000) {
+        return 0;
+      }
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   </script>

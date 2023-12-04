@@ -3,7 +3,7 @@
 include_once '../common.php';
 
 function getMyAbleTradeList($userIdx) {
-    $sql = "SELECT CARBON_TRADE_TYPE, CASH, CARBON, PAID_CARBON, CREATED_DATE
+    $sql = "SELECT IDX, CARBON_TRADE_TYPE, CASH, CARBON, PAID_CARBON, CREATED_DATE
         FROM cempus_carbon_trades
         WHERE USER_IDX = $userIdx
         AND COMPLETE_YN = 'N'
@@ -12,22 +12,23 @@ function getMyAbleTradeList($userIdx) {
 
     $result = mysqli_query(getConnection(), $sql);
 
-    $row = mysqli_fetch_array($result);
-
-    if ($row == null) {
+    if (!$result) {
         $json['result'] = "500";
         $json['message'] = "서버 에러";
         echo json_encode($json, JSON_UNESCAPED_UNICODE);
         exit;
     }
 
-    for ($i = 0; $i < 1; $i++) {
-        $row = mysqli_fetch_array($result);
-        $json['myAbleTradeList'][$i]['cash'] = $row['CASH'];
-        $json['myAbleTradeList'][$i]['carbon'] = $row['CARBON'];
-        $json['myAbleTradeList'][$i]['paidCarbon'] = $row['PAID_CARBON'];
-        $json['myAbleTradeList'][$i]['carbonTradeType'] = $row['CARBON_TRADE_TYPE'];
-        $json['myAbleTradeList'][$i]['createdDate'] = $row['CREATED_DATE'];
+    $json = array();
+    while ($row = mysqli_fetch_array($result)) {
+        $data['idx'] = $row['IDX'];
+        $data['cash'] = $row['CASH'];
+        $data['carbon'] = $row['CARBON'];
+        $data['paidCarbon'] = $row['PAID_CARBON'];
+        $data['carbonTradeType'] = $row['CARBON_TRADE_TYPE'];
+        $data['createdDate'] = $row['CREATED_DATE'];
+
+        array_push($json, $data);
     }
 
     return $json;    

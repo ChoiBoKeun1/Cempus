@@ -806,3 +806,60 @@ margin: 15px 0}
   align-items: center;
   gap: 16px;
 }
+
+.dashboard_my_info_area {
+  background: white;
+  height: 206px;
+  padding: 20px 15px;
+  border-radius: 20px;
+  margin-top: 50px;
+}
+.btn_home_area {
+  display: flex;
+  align-items: center;
+  width: 382px;
+
+}
+.btn_move {
+  width: 214px;
+  height: 279.333px;
+
+  /* Primary/100 */
+  background: #e7faf4;
+  border-radius: 25px;
+  padding: 18px 0;
+
+  color: #000;
+
+  text-align: center;
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 33.6px */
+  letter-spacing: 0.2px;
+
+}
+.btn_move > img {
+  width: 57px;
+  margin-top: 58px;
+  margin-bottom: 10px;
+}
+
+.btn_move_right {
+  width: 40%;
+  margin-left: 20px;
+}
+
+.my_info_mypage {
+  height: 160px;
+}
+
+.cancel {
+  color:red;
+  cursor: pointer;
+}
+
+.logo, .menu {
+  cursor: pointer;
+}

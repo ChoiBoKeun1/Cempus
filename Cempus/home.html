@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>대시보드</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="image_sub_area">
+        <div class="dashboard_my_info_area">
+          <div class="my_info">
+            <div class="my_info_title">My Account</div>
+            <div class="my_info_content">
+              <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/trade/wallet.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">현금</div>
+                  <div class="my_info_sub_content" id="myCash">\ 0.00</div>
+                </div>
+              </div>
+              <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/trade/carbon.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">탄소 배출권</div>
+                  <div class="my_info_sub_content" id="myCarbon">t 0.00</div>
+                </div>
+              </div>
+            </div>
+            <div class="my_info_content">
+              <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/tender/nft.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">NFT</div>
+                  <div class="my_info_sub_content" id="myNft">\ 0.00</div>
+                </div>
+              </div>
+              <div class="my_info_content_left">
+                <div class="my_info_img"><img src="./image/cempus/tender/tender.png"></div>
+                <div class="my_info_sub">
+                  <div class="my_info_sub_title">입찰 금액</div>
+                  <div class="my_info_sub_content" id="myTender">t 0.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="common_content_area">
+        <div class="btn_sub_area">
+          <a href="./tender.html" class="btn_confirm2"><div>탄소 배출권 크라우드 펀딩</div></a>
+        </div>
+        <div class="btn_home_area">
+          <a href="./trade.html" class="btn_move"><img src="./image/cempus/tender/paper.svg" /><div>탄소 배출권<br/>거래하기</div></a>
+          <a href="./nft.html" class="btn_move btn_move_right"><img src="./image/cempus/index/nft_logo.png" /><div>NFT 발급</div></a>
+        </div>
+      </div>
+
+  <script>
+    $(document).ready(function () {
+      getMyAsset();
+    });
+
+    function getMyAsset() {
+      $.get("./php/mypage/MyAsset.php", function(data) {
+        console.log(data);
+        var result = JSON.parse(data);
+        console.log(result);
+        if(result.result == 400) {
+          alert('로그인이 필요합니다.');
+          location.href = "./login.html"
+          return false;
+        }
+        var userCash = '\\ '+numberWithCommas(result.data.userCash);
+        var userCarbon = numberWithCommas(result.data.userCarbon)+' T';
+        $('#myCash').html(userCash);
+        $('#myCarbon').html(userCarbon);
+        var userNft = '\\ '+numberWithCommas(result.data.userCarbonNft);
+        var userTender = numberWithCommas(result.data.userCashFunding)+' T';
+        $('#myNft').html(userNft);
+        $('#myTender').html(userTender);
+
+      });
+
+    }
+
+    function numberWithCommas(x) {
+      if (x == null || x == undefined || x == '' || x == 0 || x == '0' || x == '0.00' || x == 0.00 || x == '0.0' || x == 0.0 || x == '0.000' || x == 0.000) {
+        return 0;
+      }
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  </script>
+</body>
+</html>

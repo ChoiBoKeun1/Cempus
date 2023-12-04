@@ -12,22 +12,21 @@ function getMyCompleteTradeList($userIdx) {
 
     $result = mysqli_query(getConnection(), $sql);
 
-    $row = mysqli_fetch_array($result);
-
-    if ($row == null) {
+    if (!$result) {
         $json['result'] = "500";
         $json['message'] = "서버 에러";
         echo json_encode($json, JSON_UNESCAPED_UNICODE);
         exit;
     }
 
-    for ($i = 0; $i < 1; $i++) {
-        $row = mysqli_fetch_array($result);
-        $json['myCompleteTradeList'][$i]['cash'] = $row['CASH'];
-        $json['myCompleteTradeList'][$i]['carbon'] = $row['CARBON'];
-        $json['myCompleteTradeList'][$i]['tradeType'] = $row['TRADE_TYPE'];
-        $json['myCompleteTradeList'][$i]['tradeDate'] = $row['TRADE_DATE'];
-        $json['myCompleteTradeList'][$i]['boardIdx'] = $row['BOARD_IDX'];
+    $json = array();
+    while ($row = mysqli_fetch_array($result)) {
+        $data['cash'] = $row['CASH'];
+        $data['carbon'] = $row['CARBON'];
+        $data['tradeType'] = $row['TRADE_TYPE'];
+        $data['tradeDate'] = $row['TRADE_DATE'];
+        $data['boardIdx'] = $row['BOARD_IDX'];
+        array_push($json, $data);
     }
 
     return $json;    
