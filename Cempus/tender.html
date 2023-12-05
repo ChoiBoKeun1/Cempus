@@ -5,7 +5,7 @@
     <title>입찰 화면</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="./css/cempus/main_231102.css" rel="stylesheet" />
   </head>
   <body>
@@ -14,7 +14,7 @@
         <div class="image_sub_title">
           <img src="./image/cempus/tender/title_logo.svg" alt="타이틀로고" onclick="location.href='./home.html'">탄소배출권 거래 현황
         </div>
-        <div class="chart_area">차트가 들어갈 곳</div>
+        <div class="chart_area"><div id="chart_div" style="width: 100%; height: 200px;"></div></div>
       </div>
       <div class="common_content_area">
         <div class="common_title">
@@ -129,6 +129,69 @@
         return 0;
       }
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
+
+
+
+
+
+
+    // Google Charts API 로드
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Google Charts API 로드가 완료된 후 실행될 콜백 함수
+    google.charts.setOnLoadCallback(drawChart);
+
+    // 차트 생성 함수
+    function drawChart() {
+      $.get("./php/tender/RecentPrice.php", function(data) {
+        console.log(data);
+        var result = JSON.parse(data);
+        console.log(result);
+        console.log(result.list)
+        var input_data = [];
+        $.each(result.list, function(index, item) {
+          var date = item.tradeDate.substring(0, 4)+item.tradeDate.substring(5, 7)+item.tradeDate.substring(8, 10);
+          var price = item.price;
+          input_data.push([date, parseInt(price)]);
+        });
+
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', '날짜');
+        data.addColumn('number', '숫자');
+        // 데이터 형식 변환
+        $.each(input_data, function(index, row) {
+          var date = new Date(row[0].replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'));
+          data.addRow([date, row[1]]);
+        });
+
+        // 차트 옵션 설정
+        var options = {
+          title: '날짜별 단가 추이',
+          legend: { position: 'bottom' },
+          hAxis: {
+            format: 'yyyyMMdd', // 날짜 형식 지정
+            gridlines: {color: 'transparent'} // 수평 격자선 숨김
+          },
+          vAxis: {
+            gridlines: {color: 'transparent'} // 수직 격자선 숨김
+          },
+          backgroundColor: 'transparent', // 투명 배경 설정
+        };
+
+        // LineChart 인스턴스 생성 및 차트 그리기
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      });
+
+    }
+
+    function getRecentData() {
+
+
     }
   </script>
 </body>
