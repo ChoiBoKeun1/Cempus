@@ -110,7 +110,6 @@
         var result = JSON.parse(data);
         console.log(result);
         if(result.result == 200) {
-          alert('NFT로 교환되었습니다.');
           location.href = "./nftInfo.html?idx="+result.recentIdx;
         } else {
           alert('NFT로 교환에 실패하였습니다.');

@@ -7,6 +7,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+
+    <style>
+
+      .board_list {
+        max-height: 200px;
+        overflow-y: scroll;
+      }
+      .board_list::-webkit-scrollbar {
+        width: 10px; /*스크롤바의 너비*/
+      }
+
+      .board_list::-webkit-scrollbar-thumb {
+        background-color: #12D18E; /*스크롤바의 색상*/
+        background-clip: padding-box;
+        border: 4px solid transparent;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+      }
+
+      .board_list::-webkit-scrollbar-track {
+        background:none; /*스크롤바 트랙 색상*/
+      }
+    </style>
   </head>
   <body>
     <div class="container tender_container">
@@ -50,9 +73,9 @@
         </div>
       </div>
       <div class="common_content_area">
-        <div class="btn_sub_area">
-          <a href="./tender.html" class="btn_confirm2"><div>탄소 배출권 지급 받기</div></a>
-        </div>
+<!--        <div class="btn_sub_area">-->
+<!--          <a href="./tender.html" class="btn_confirm2"><div>탄소 배출권 지급 받기</div></a>-->
+<!--        </div>-->
       </div>
       <div class="my_info_title">등록한 거래 목록</div>
       <div class="board_list" id="list1">

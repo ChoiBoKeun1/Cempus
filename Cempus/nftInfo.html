@@ -56,7 +56,9 @@
         </div>
       </div>
     </div>
-
+    <div class="loading-overlay">
+      <div class="loading-image"></div>
+    </div>
   <script>
     $(function(){
         getNFTInfo();
@@ -90,9 +92,11 @@
         uuid = data.uuid;
         id = data.userId;
         wAdr = data.walletAddress
+        carbonNft = data.carbonNFT;
       });
     }
 
+    var carbonNft;
     var uuid;
     var id;
     var wAdr;
@@ -119,9 +123,14 @@
             data: formData,
             processData: false,
             contentType: false,
+            beforeSend: function() {
+              // 로딩 이미지를 화면에 표시
+              $(".loading-overlay").show();
+            },
             success: function(response) {
+              setCookie("carbonNft", carbonNft, 1);
               console.log("Upload successful", response);
-              alert('업로드 성공');
+              location.href= "./nftComplete.html";
             },
             error: function(error) {
               console.error("Error uploading", error);
@@ -131,6 +140,12 @@
         });
       });
     });
+
+    function setCookie(name, value, exp) {
+      var date = new Date();
+      date.setTime(date.getTime() + exp*24*60*60*1000);
+      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    }
   </script>
   </body>
 </html>

@@ -15,6 +15,8 @@ $allTradeYn = $_POST['allTradeYn']; // 시장가 여부
 $cash = $_POST['cash']; // 단가
 $carbon = $_POST['carbon']; // 탄소권 수량
 
+$sendResult = array();
+
 $tradeList = array();
 // 먼저 지정가만
 if ($allTradeYn == 'N') {
@@ -45,9 +47,11 @@ if ($allTradeYn == 'N') {
             updateCarbonTrade($idx, $paidCarbon);
 
             // 거래 결과 내역 등록
-            insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+            $result1 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
 
+            array_push($sendResult, $result1);
             // 거래 종료
+
             break;
         } else {// 남은 거래 수량이 더 많을 경우
 
@@ -60,7 +64,9 @@ if ($allTradeYn == 'N') {
             updateCarbonTrade($idx, $paidCarbon);
 
             // 거래 결과 내역 등록
-            insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+            $result2 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+
+            array_push($sendResult, $result2);
             // 거래 계속
         }
     }
@@ -102,8 +108,9 @@ if ($allTradeYn == 'N') {
                 updateCarbonTrade($idx, $paidCarbon);
 
                 // 거래 결과 내역 등록
-                insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+                $result3 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
 
+                array_push($sendResult, $result3);
                 // 거래 계속
             } else {// 이번 거래로 돈을 다 쓸경우
 
@@ -116,8 +123,10 @@ if ($allTradeYn == 'N') {
                 updateCarbonTrade($idx, $paidCarbon);
 
                 // 거래 결과 내역 등록
-                insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+                $result4 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
                 // 거래 종료
+
+                array_push($sendResult, $result4);
 
                 break;
             }
@@ -144,8 +153,9 @@ if ($allTradeYn == 'N') {
                 updateCarbonTrade($idx, $paidCarbon);
 
                 // 거래 결과 내역 등록
-                insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+                $result5 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
 
+                array_push($sendResult, $result5);
                 // 거래 종료
                 break;
             } else {// 남은 거래 수량이 더 많을 경우
@@ -159,7 +169,9 @@ if ($allTradeYn == 'N') {
                 updateCarbonTrade($idx, $paidCarbon);
 
                 // 거래 결과 내역 등록
-                insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+                $result6 = insertTradeResult($idx, $userIdx, $tradeUserIdx, $cash, $paidCarbon, $carbonTradeType);
+
+                array_push($sendResult, $result6);
                 // 거래 계속
             }
         }
@@ -170,6 +182,7 @@ if ($allTradeYn == 'N') {
 $json['result'] = "200";
 $json['message'] = "입찰 성공";
 $json['tradeList'] = $tradeList;
+$json['sendResult'] = $sendResult;
 
 echo json_encode($json, JSON_UNESCAPED_UNICODE);
 

@@ -916,3 +916,24 @@ margin: 15px 0}
   font-weight: 700;
   line-height: 160%; /* 32px */
 }
+
+.loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 회색 배경 및 투명도 조절 */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 다른 요소 위에 표시하기 위한 z-index 값 */
+}
+
+.loading-image {
+  width: 128px;
+  height: 128px;
+  background: url('../../image/cempus/nft/loading-gif.gif') center center no-repeat; /* 로딩 이미지 경로 설정 */
+  background-size: cover;
+  margin: 250px auto;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>NFT 발급 완료</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="./css/cempus/main_231102.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container tender_container">
+      <div class="common_content_area">
+        <div class="common_image">
+          <img src="./image/cempus/nft/nft_complete.png">
+        </div>
+        <div class="common_title2">
+          NFT
+        </div>
+        <div class="common_image">
+          <img src="./image/cempus/tender/beenbak.svg">
+        </div>
+        <div class="common_title3">
+          <span id="carbonNft">333</span>T
+        </div>
+        <div class="common_content_text">
+          NFT 변환이 완료되었습니다.<br>OpenSea를 통해 NFT를 거래해 보세요
+          <div class="detail">지구를 위한 NET-ZERO 운동에 참여하세요</div>
+        </div>
+        <div class="btn_sub_area">
+          <a href="./home.html" class="btn_confirm2"><div>홈으로 돌아가기</div></a>
+        </div>
+      </div>
+
+    </div>
+  <script>
+    $(function(){
+      var carbonNft = getCookie('carbonNft');
+      console.log(carbonNft);
+        $('#carbonNft').text(carbonNft);
+    });
+
+    function getCookie(name) {
+      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return value? value[2] : null;
+    }
+  </script>
+</html>

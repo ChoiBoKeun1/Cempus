@@ -165,13 +165,13 @@
 
       console.log(data);
       $.post('./php/trade/InsertCarbonTrade2.php', data, function(data) {
-        console.log(result);
         console.log(data);
         var result = JSON.parse(data);
         console.log(result);
         if (result.result==200) {
             alert('거래가 성공적으로 등록되었습니다.');
             getCarbonTradeList();
+            getMyAsset();
             } else {
             alert('거래 등록에 실패하였습니다.');
         }

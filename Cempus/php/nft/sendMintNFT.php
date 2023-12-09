@@ -1,25 +1,44 @@
 <?php
 
+set_time_limit(300);
+
 include_once '../common.php';
 include_once "../user/util/JwtUtil.php";
 include_once "./mapper/GetNFTInfo.php";
 
 // 데이터 준비
-$dataURL = $_POST['image'];
 $uuid = $_POST['uuid'];
 $id = $_POST['id'];
 $wAdr = $_POST['wAdr'];
 
-// API 엔드포인트
-$apiEndpoint = 'https://cempus-dlwnsgus07.koyeb.app/mintNFT';
+
+$apiEndpoint = 'http://cempus-dlwnsgus07.koyeb.app/mintNFT';
+/**
+ *
+ */
+
+// 이미지 데이터 준비
+$imageDataUrl = $_POST['image'];
+$imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageDataUrl));
+
+// cURL 초기화
+$ch = curl_init($apiEndpoint);
+
+// 이미지 데이터를 임시 파일로 저장
+$tempImageFile = tempnam(sys_get_temp_dir(), 'image');
+file_put_contents($tempImageFile, $imageData);
+
+// 이미지 파일 열기
+$imageFile = new CURLFile($tempImageFile, 'image/jpeg', 'image');
 
 // POST 데이터 설정
 $postData = [
-    'image' => $dataURL,
+    'image' => $imageFile,
     'uuid' => $uuid,
     'id' => $id,
     'wAdr' => $wAdr,
 ];
+
 
 // cURL 초기화
 $ch = curl_init($apiEndpoint);
